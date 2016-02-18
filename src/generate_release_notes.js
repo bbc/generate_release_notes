@@ -21,13 +21,13 @@ var fs = require('fs'),
     github = require('octonode');
 
 function create() {
-    var notesTemplate = fs.readFileSync(__dirname + '/templates/notes.html').toString(),
-        style = fs.readFileSync(__dirname + '/templates/notes.css').toString(),
+    var notesTemplate = fs.readFileSync(__dirname + '/../templates/notes.html').toString(),
+        style = fs.readFileSync(__dirname + '/../templates/notes.css').toString(),
         readme = getExtraFileData('readme-location');
 
     style += '\n' + getExtraFileData('style-sheet-location');
 
-    var changelogTemplate = fs.readFileSync(__dirname + '/templates/changelog.md').toString()
+    var changelogTemplate = fs.readFileSync(__dirname + '/../templates/changelog.md').toString()
     Mustache.parse(changelogTemplate) //optimization
 
     var client = github.client(params.token);
@@ -50,7 +50,7 @@ function create() {
         process.exit(1);
     }
 
-    var changelogTemplate = fs.readFileSync(__dirname + '/templates/changelog.md').toString()
+    var changelogTemplate = fs.readFileSync(__dirname + '/../templates/changelog.md').toString()
     Mustache.parse(changelogTemplate) //optimization
 
     client.get('/repos/' + params.repo + '/releases', {}, function(err, status, body, headers) {
