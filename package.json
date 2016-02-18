@@ -5,6 +5,7 @@
   "bin": {
     "junit-viewer": "./src/generate_release_notes"
   },
+  "main": "./src/generate_release_notes.js",
   "directories": {
     "templates": "./templates",
     "src": "./src"
