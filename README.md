@@ -18,7 +18,7 @@ The following params are optional
 
 * ```--save-to=folder_location``` saves notes.html and changelog.json to this folder, defaults to ```./```
 * ```--token=xxx``` the github oatuh token
-* ```--from-tag-name=x.x.x.x.x.x...``` assumption it is 
+* ```--from-tag-name=x.x.x.x.x.x...``` assumption it is
 a versioned number
 * ```--last-releases=X``` gets the last X releases
 * ```--readme-location=file_location``` this will be in the top of notes.html, will not be present when not given
@@ -40,7 +40,11 @@ var options = {
     'readme-location':'file_location',
     'style-sheet-location':'file_location',
     'from-tag-name':'x.x.x.x.x.x...',
-    'last-releases': X
+    'last-releases': X,
+    'callback': function(data) {
+        console.log(data.notes) // the html string
+        console.log(data.changelogs) // the json string
+    }
 }
 
 generate.create(options);

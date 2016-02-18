@@ -1,13 +1,14 @@
 var NOT_SET = 'not set';
 
 var params = {
-    repo: NOT_SET,
+    'repo': NOT_SET,
     'save-to': NOT_SET,
-    token: NOT_SET,
+    'token': NOT_SET,
     'readme-location': NOT_SET,
     'style-sheet-location': NOT_SET,
     'from-tag-name': NOT_SET,
-    'last-releases': NOT_SET
+    'last-releases': NOT_SET,
+    'callback': NOT_SET
 }
 
 function isParamSet(name) {
@@ -74,6 +75,7 @@ function create() {
         }
 
         fs.writeFileSync(saveFolder + 'changelog.json', JSON.stringify(releases));
+
         console.log('Saved', saveFolder + 'changelog.json');
 
         var changelog = releases.map(function(release) {
@@ -88,6 +90,13 @@ function create() {
 
         fs.writeFileSync(saveFolder + 'notes.html', notes)
         console.log('Saved', saveFolder + 'notes.html');
+
+        if(isParamSet('callback')) {
+            params.callback({
+                notes: notes,
+                changelog: changelog
+            })
+        }
     });
 }
 
