@@ -50,4 +50,4 @@ var options = {
 generate.create(options);
 ```
 
-I would imagine octonode is synchronous so if you are using grunt or gulp you will need to make this wait
+In this case you will need the callback because of the call to github
