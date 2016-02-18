@@ -8,7 +8,7 @@ This generates two files
 
 Install using
 
-```npm i -g generate-release-notes```
+```npm i -g generate_release_notes```
 
 You need the following param
 
@@ -28,7 +28,7 @@ a versioned number
 ## Node Usage
 Install using
 
-```npm i --save-dev generate-release-notes```
+```npm i --save-dev generate_release_notes```
 
 ```
 var generate = require('generate_release_notes');
