@@ -3,10 +3,11 @@
   "version": "1.1.0",
   "description": "",
   "bin": {
-    "junit-viewer": "./generate_release_notes"
+    "junit-viewer": "./src/generate_release_notes"
   },
   "directories": {
-    "templates": "./templates"
+    "templates": "./templates",
+    "src": "./src"
   },
   "repository": {
     "type": "git",

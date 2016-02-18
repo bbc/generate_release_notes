@@ -4,7 +4,7 @@ This generates two files
 ```notes.html``` a view of your change logs and readme
 ```changelogs.json``` the github dump
 
-## Usage
+## CLI Usage
 
 Install using
 
@@ -22,5 +22,28 @@ The following params are optional
 a versioned number
 * ```--last-releases=X``` gets the last X releases
 * ```--readme-location=file_location``` this will be in the top of notes.html, will not be present when not given
-* ```--style-sheet-location``` adds style sheet for notes.html, will still look like readme
+* ```--style-sheet-location=file_location``` adds style sheet for notes.html, will still look like readme
 * ```--usage``` or ```--help``` exits and displays this message
+
+## Node Usage
+Install using
+
+```npm i --save-dev generate-release-notes```
+
+```
+var generate = require('generate_release_notes');
+
+var options = {
+    'repo':':owner/:repo',
+    'save-to':'folder_location',
+    'token':'xxx',
+    'readme-location':'file_location',
+    'style-sheet-location':'file_location',
+    'from-tag-name':'x.x.x.x.x.x...',
+    'last-releases': X
+}
+
+generate.create(options);
+```
+
+I would imagine octonode is synchronous so if you are using grunt or gulp you will need to make this wait

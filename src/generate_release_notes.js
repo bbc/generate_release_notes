@@ -14,30 +14,6 @@ function isParamSet(name) {
     return params[name] !== NOT_SET
 }
 
-function setParam(arg, name) {
-    if (~arg.indexOf('--' + name)) {
-        params[name] = arg.split('=')[1];
-    }
-}
-
-function printUseage(exitNum) {
-    exitNum = exitNum || 0;
-    console.log('This generates two files');
-    console.log('notes.html: a view of your change logs and readme');
-    console.log('changelogs.json: the github dump');
-    console.log('You need the following params');
-    console.log('    --repo=:owner/:repo');
-    console.log('The following params are optional');
-    console.log('    --save-to=folder_location saves notes.html and changelog.json to this folder, defaults to ./');
-    console.log('    --token=xxx the github oatuh token');
-    console.log('    --from-tag-name=x.x.x.x.x.x... assumption it is a versioned number');
-    console.log('    --last-releases=X gets the last X releases');
-    console.log('    --readme-location=file_location this will be in the top of notes.html, will not be present when not given');
-    console.log('    --usage or --help exits and displays this message');
-    console.log('    --style-sheet-location adds style sheet for notes.html, will still look like readme');
-    process.exit(exitNum);
-}
-
 var fs = require('fs'),
     markdown = require('marked'),
     Mustache = require('mustache'),
@@ -98,6 +74,7 @@ function create() {
         }
 
         fs.writeFileSync(saveFolder + 'changelog.json', JSON.stringify(releases));
+        console.log('Saved', saveFolder + 'changelog.json');
 
         var changelog = releases.map(function(release) {
             return Mustache.render(changelogTemplate, release) + '\n\n'
@@ -110,6 +87,7 @@ function create() {
         });
 
         fs.writeFileSync(saveFolder + 'notes.html', notes)
+        console.log('Saved', saveFolder + 'notes.html');
     });
 }
 
@@ -121,7 +99,7 @@ function getExtraFileData(name) {
             fileName = process.cwd() + '/' + params[name];
         }
         if (!fs.existsSync(fileName)) {
-            console.log('Your file:', fileName, 'does not exist');
+            console.log('Your file:', fileName, 'does not exist for name:', name);
             process.exit(3);
         }
 
@@ -176,18 +154,12 @@ function versionCompare(v1, v2, options) {
     return 0;
 }
 
-process.argv.forEach(function(arg) {
-    Object.keys(params).forEach(function(key) {
-        setParam(arg, key)
-    })
-    if (~arg.indexOf('--usage') || ~arg.indexOf('--help')) {
-        printUseage();
+module.exports = {
+    create: function(options) {
+        Object.keys(options).forEach(function(key) {
+            params[key] = options[key];
+        })
+        create();
     }
-})
-
-if (!isParamSet('repo')) {
-    printUseage(1);
-} else {
-    create();
 }
 
