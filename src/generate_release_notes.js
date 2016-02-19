@@ -68,7 +68,9 @@ function create() {
 
         if (isParamSet('last-releases')) {
             var tmpReleases = [];
-            for (var i = 0; i < parseInt(params['last-releases']); i++) {
+            var count = parseInt(params['last-releases']);
+            if(releases.length < count) count = releases.length;
+            for (var i = 0; i < count; i++) {
                 tmpReleases.push(releases[i]);
             }
             releases = tmpReleases;
