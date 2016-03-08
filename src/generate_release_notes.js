@@ -77,8 +77,10 @@ function create() {
         }
 
         fs.writeFileSync(saveFolder + 'changelog.json', JSON.stringify(releases));
-
         console.log('Saved', saveFolder + 'changelog.json');
+        fs.writeFileSync(saveFolder + 'changelog.js', 'window.changelog='+JSON.stringify(releases));
+        console.log('Saved', saveFolder + 'changelog.js');
+
 
         var changelog = releases.map(function(release) {
             return Mustache.render(changelogTemplate, release) + '\n\n'
@@ -173,4 +175,3 @@ module.exports = {
         create();
     }
 }
-
